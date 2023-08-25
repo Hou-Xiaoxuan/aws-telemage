@@ -5,7 +5,7 @@
 import json
 import sys
 
-sys.path.append("src/lib")
+sys.path.append("lib")
 from robot import handle_message
 import awsclient
 
