@@ -48,7 +48,7 @@ def get_upload_path(file: TeleFile, username: str, message_id: str):
     path = "telemage" if file.file_type == "photo" else "tempfile"
     path = (
         "telemage"
-        if file.file_name.split(".")[-1].lower() in ["jpg", "jpeg", "png", "gif"]
+        if file.filename.split(".")[-1].lower() in ["jpg", "jpeg", "png", "gif"]
         else "tempfile"
     )
     time = datetime.datetime.now().strftime("%Y-%m-%d")
