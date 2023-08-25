@@ -1,5 +1,5 @@
 """
-    使用flask测试机器人
+    使用flask本地测试机器人
 """
 import sys
 sys.path.append("src/lib")

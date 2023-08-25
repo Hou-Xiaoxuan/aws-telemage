@@ -17,6 +17,7 @@ def reply_msg(chat_id: int, text: str, message_id=None):
 
 
 def get_file(file_id: dict) -> bytes:
+    '''download file from telegram server'''
     url = "https://api.telegram.org/bot{}/getFile".format(TOKEN)
     data = {"file_id": file_id}
     r = requests.post(url, data=data)
@@ -39,7 +40,8 @@ class TeleFile:
 
 
 def get_upload_path(file: TeleFile, username: str, message_id: str):
-    """路径规则：图片放入telemage，文件放入tempfile，按照用户id分文件夹
+    """ 生成上传路径
+    路径规则：图片放入telemage，文件放入tempfile，按照用户id分文件夹
     文件名：yyyy-mm-dd-message_id-文件名
     """
     user_id = hashlib.sha256(username.encode()).hexdigest()[:16]
