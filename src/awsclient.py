@@ -52,6 +52,15 @@ def get_content_type(file_name: str):
     return content_type
 
 
+def get_presigned_url(filename: str) -> str:
+    """获取预签名链接"""
+    return client.generate_presigned_url(
+        "get_object",
+        Params={"Bucket": DEFAULT_BUCKET, "Key": filename},
+        ExpiresIn=1000*60*5,
+    )
+
+
 def upload_file(file_content, filename) -> str:
     logging.info(f"uploading {filename}")
     client.put_object(

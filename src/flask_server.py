@@ -24,7 +24,7 @@ def index():
 def upload_image():
     from apple_shortcut_handler import handler
 
-    return handler({"headers": request.headers, "data": request.get_data()}, None)
+    return handler({"headers": request.headers, "body": request.get_data()}, None).get('body')
 
 
 if __name__ == "__main__":
