@@ -55,13 +55,13 @@ def get_content_type(file_name: str):
 
 def get_presigned_url(filename: str) -> str:
     """获取预签名链接"""
-    return client.generate_presigned_url(
-        ClientMethod = 'put_object',
+    return DEFAULT_URL + filename, client.generate_presigned_url(
+        ClientMethod="put_object",
         Params={
             "Bucket": DEFAULT_BUCKET,
             "Key": filename,
         },
-        ExpiresIn=60 * 60,
+        ExpiresIn=60 * 1, # 1min
     )
 
 

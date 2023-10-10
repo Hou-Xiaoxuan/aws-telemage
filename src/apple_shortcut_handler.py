@@ -1,4 +1,5 @@
-from awsclient import get_presigned_url,upload_file
+from awsclient import get_presigned_url, upload_file
+import json
 
 
 def handler_old(event: dict, context: dict) -> dict:
@@ -43,7 +44,11 @@ def handler(event: dict, context: dict) -> dict:
     now = datetime.datetime.now()
     try:
         path = f"{now.year}/{now.month}/{now.year}-{now.month}-{now.day}-{random.randint(1000, 9999)}-{filename}.{fileext}"
-        url = get_presigned_url(path)
+        url, presig_url = get_presigned_url(path)
     except Exception as e:
         return {"statusCode": 400, "body": f"upload failed: {str(e)}"}
-    return {"statusCode": 200, "message": "ok", "body": url}
+    return {
+        "statusCode": 200,
+        "message": "ok",
+        "body": json.dumps({"presig_url": presig_url, "url": url}),
+    }
