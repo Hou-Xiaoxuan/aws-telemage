@@ -13,6 +13,7 @@ client: boto3.client = boto3.client(
     region_name=REGION_NAME,
     aws_access_key_id=AWS_ACCESS_KEY,
     aws_secret_access_key=AWS_SECRET_ACCESS_KEY,
+    endpoint_url="https://s3.ap-east-1.amazonaws.com",
 )
 
 
@@ -55,9 +56,12 @@ def get_content_type(file_name: str):
 def get_presigned_url(filename: str) -> str:
     """获取预签名链接"""
     return client.generate_presigned_url(
-        "get_object",
-        Params={"Bucket": DEFAULT_BUCKET, "Key": filename},
-        ExpiresIn=1000*60*5,
+        ClientMethod = 'put_object',
+        Params={
+            "Bucket": DEFAULT_BUCKET,
+            "Key": filename,
+        },
+        ExpiresIn=60 * 60,
     )
 
 
