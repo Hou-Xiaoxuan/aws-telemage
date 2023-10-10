@@ -6,12 +6,9 @@ import json
 import sys
 
 sys.path.append("lib")
-from robot import handle_message
-import awsclient
+from telerobot_handler import handler
+
 
 def lambda_handler(event, context):
     # TODO implement
-    body = event["body"]
-    data = json.loads(body)
-    handle_message(data)  # lambda函数不支持异步
-    return {"statusCode": 200}
+    return handler(event, context)

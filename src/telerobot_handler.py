@@ -4,6 +4,7 @@ from awsclient import upload_file
 from env import ALLOWED_USERS, TOKEN
 import logging
 import hashlib
+import json
 
 
 def reply_msg(chat_id: int, text: str, message_id=None):
@@ -56,6 +57,12 @@ def get_upload_path(file: TeleFile, username: str, message_id: str):
     return f"{path}/{user_id}/{filename}"
 
 
+def handler(event, context) -> dict:
+    body = event["body"]
+    data = json.loads(body)
+    return handle_message(data)  # lambda函数不支持异步
+
+
 def handle_message(data) -> None:
     try:
         chat_id = data["message"]["chat"]["id"]
@@ -67,7 +74,7 @@ def handle_message(data) -> None:
 
     def _handle_message() -> str:
         """None|str error message"""
-        if username not in ALLOWED_USERS:
+        if username not in ALLOWED_USERS or ALLOWED_USERS is None or len(ALLOWED_USERS) == 0:
             return f"Permission denied for user {username}"
 
         logging.info(f"accept message from: {username}")
