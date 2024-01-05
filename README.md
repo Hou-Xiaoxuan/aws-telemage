@@ -1,4 +1,5 @@
-完全基于 AWS 部署的自用 telegram 图床机器人。
+基于 AWS S3&Lambda&APIGateway 部署的自用图床/小文件分享。
+使用Telegram/Apple Shortcut进行交互。
 
 # 步骤
 
