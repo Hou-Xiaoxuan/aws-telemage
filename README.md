@@ -33,6 +33,11 @@ ALLOWED_USERS = ["user_a", "user_b"] # optional, [] for all users
 
 直接修改 telerotot_handler.py 中的get_upload_path来更改保存文件的路径。
 
+效果如图
+
+<img width="364" alt="image" src="https://github.com/Hou-Xiaoxuan/aws-telemage/assets/59465493/e82f9897-6b04-45bf-af30-22fca4937407">
+
+
 # 快捷指令
 复用代码来实现一个Apple快捷指令版本的上传功能。需要修改 `lambda_function`中第9行
 
@@ -40,4 +45,13 @@ ALLOWED_USERS = ["user_a", "user_b"] # optional, [] for all users
 # from telerobot_handler import handler # 修改前
 from apple_shorcut_handlrer import handler # 修改后
 ```
-快捷指令`./resource/upload_latest_file.shortcut`
+快捷指令位于`./resource/upload_latest_file.shortcut`，注意使用需要使用“快捷指令”App编辑替换部署服务的url，当前只支持图片。
+
+<img width="619" alt="image" src="https://github.com/Hou-Xiaoxuan/aws-telemage/assets/59465493/83dbc0ba-69ef-44ab-a975-e778932f808c">
+
+效果如图，成功上传自动复制链接到剪切板。
+
+<img width="661" alt="image" src="https://github.com/Hou-Xiaoxuan/aws-telemage/assets/59465493/005a1060-68a6-48cb-8a4a-f0a1bf15b5a7">
+
+
+
