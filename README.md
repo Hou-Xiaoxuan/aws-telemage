@@ -7,7 +7,7 @@
 
 2. 新建可以访问桶的用户，导出密钥文件，内含需要密钥
 
-3. 新建LambdaAPI，将src文件夹内所有文件压缩为zip文件上传、部署
+3. 新建LambdaAPI，按照需求将对应zip文件上传、部署。zip自动打包方法见下方。
 
 4. 新建APIGateway，将路由设置为新建的LambdaAPI函数
 
@@ -54,4 +54,35 @@ from apple_shorcut_handlrer import handler # 修改后
 <img width="661" alt="image" src="https://github.com/Hou-Xiaoxuan/aws-telemage/assets/59465493/005a1060-68a6-48cb-8a4a-f0a1bf15b5a7">
 
 
+# lambda 代码自动打包
+## Lambda 运行环境
 
+- Runtime：Python 3.14
+- Handler：`lambda_function.lambda_handler`
+- Region：`ap-east-1`
+- Telegram 和 Apple Shortcut 使用不同的部署包
+- 部署包由 `scripts/build_lambda.sh` 生成
+- `src/env.py` 包含敏感配置，请勿上传到公共仓库。
+
+## 构建部署包
+
+本机需要安装 Python 3.14、`pip`、`zip` 和 `unzip`。先从配置模板创建本地配置：
+
+```bash
+cp src/env.example.py src/env.py
+```
+
+填写 `src/env.py` 后运行：
+
+```bash
+./scripts/build_lambda.sh
+```
+
+生成以下文件：
+
+```text
+dist/telemage-telegram-python314.zip
+dist/telemage-shortcut-python314.zip
+```
+
+两个 AWS Lambda 均保持 Handler 为 `lambda_function.lambda_handler`，分别上传对应 ZIP，Runtime 设置为 Python 3.14。
